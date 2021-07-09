@@ -1,13 +1,13 @@
 class Character
-    attr_reader :name, :hitpoint, :attack , :die
+    attr_reader :name, :hitpoint, :attack , :die, :damage_attack
     
     def initialize(name,hitpoint,damage_attack)
       @name = name
       @hitpoint = hitpoint
       @damage_attack = damage_attack
     end
-    
-    def play 
+
+    def play(other_player)
       attack(other_player)
     end
 

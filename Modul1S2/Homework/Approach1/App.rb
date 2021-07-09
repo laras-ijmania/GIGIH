@@ -6,7 +6,6 @@ require_relative "MongolSwordsman"
 require_relative "MongolSpearman"
 require_relative "Ally"
 require_relative "Player"
-  
 
 archer = MongolArcher.new('Mongol Archer', 300, 50)
 spearman = MongolSpearman.new("Mongol Spearman", 150,50)
@@ -21,33 +20,46 @@ jin = Player.new('Jin Sakai', 100, 50, 80, 30, allies, villains)
 
 i = 1
 
-number = gets
+def remove_party(party, person)
+    party.delete_at(party.find_index(person))
+end
 
-# while !jin.die? || !villains.empty?
-#     puts "========================== Turn #{i} =========================="
-#     puts "\n"
+while !jin.die? && !villains.empty?
+    puts "========================== Turn #{i} =========================="
+    puts "\n"
 
-#     puts jin.name
-#     villains.each do |villain|
-#         puts villain.name
-#     end
-#     puts "\n"
+    puts "#{jin.name} has #{jin.hitpoint} hitpoint and #{jin.damage_attack} damage attack"
+    allies.each do |ally|
+        puts "#{ally.name} has #{ally.hitpoint} hitpoint and #{ally.damage_attack} damage attack"
+    end
+    villains.each do |villain|
+        puts "#{villain.name} has #{villain.hitpoint} hitpoint and #{villain.damage_attack} damage attack"
+    end
+    puts "\n"
 
-#     jin.play
-#     villains.each do |villain|
-#         villains.delete(villain) if villain.die? || villain.flee?
-#     end
-#     puts "\n"
+    jin.play
+    allies.each do |ally|
+        target = villains[rand(villains.length)]
+        ally.play(target)
+        if target.die? or target.flee?
+            remove_party(villains, target)
+        end
+        if villains.empty?
+            break
+        end
+    end
+    villains.each do |villain|
+        target = allies[rand(allies.length)]
+        villain.play(target)
+        if target.die?
+            remove_party(allies, target)
+        end
+        if jin.die?
+            break
+        end
+    end
+    puts "\n"
 
-#     allies.each do |ally|
-#         ally.play
-#     end
-#     puts "\n"
+    i+=1
 
-#     villains.each do |villain|
-#         villain.play
-#     end
-#     puts "\n"
-
-#     i+=1
-# end
+end
