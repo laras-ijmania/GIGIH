@@ -21,32 +21,33 @@ jin = Player.new('Jin Sakai', 100, 50, 80, 30, allies, villains)
 
 i = 1
 
-while !jin.die? || !villains.empty?
-    puts "========================== Turn #{i} =========================="
-    puts "\n"
+number = gets
 
-    puts jin.name
-    villains.each do |villain|
-        puts villain.name
-    end
-    puts "\n"
+# while !jin.die? || !villains.empty?
+#     puts "========================== Turn #{i} =========================="
+#     puts "\n"
 
-    jin.play
-    villains.each do |villain|
-        villains.delete(villain) if villain.die? || villain.flee?
-    end
-    puts "\n"
+#     puts jin.name
+#     villains.each do |villain|
+#         puts villain.name
+#     end
+#     puts "\n"
 
-    allies.each do |ally|
-        ally.play
-    end
-    puts "\n"
+#     jin.play
+#     villains.each do |villain|
+#         villains.delete(villain) if villain.die? || villain.flee?
+#     end
+#     puts "\n"
 
-    villains.each do |villain|
-        villain.play
-    end
-    puts "\n"
+#     allies.each do |ally|
+#         ally.play
+#     end
+#     puts "\n"
 
-    i+=1
+#     villains.each do |villain|
+#         villain.play
+#     end
+#     puts "\n"
 
-end
+#     i+=1
+# end

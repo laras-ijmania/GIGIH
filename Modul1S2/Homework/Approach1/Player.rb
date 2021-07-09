@@ -1,6 +1,6 @@
 require_relative "Hero"
 
-class Player 
+class Player < Hero
     def initialize(name,hitpoint,damage_attack, deflect_ability, heal_point, allies, villains)
       @name = name
       @hitpoint = hitpoint
@@ -19,6 +19,10 @@ class Player
         number = gets
 
         if number == 1
+            attack
+        else
+            heal
+        end
             
     end
 
@@ -27,7 +31,7 @@ class Player
         
         i = 1
         picked_alive = false
-        until picked_alive = true
+        until picked_alive == true
             @allies.each do |ally|
                 puts "#{1}. #{ally.name} \n"
                 i+=1
@@ -50,10 +54,10 @@ class Player
         
         i = 1
         picked_alive = false
-        until picked_alive = true
+        until picked_alive == true
+            i += 1
             @villains.each do |villain|
                 puts "#{1}. #{villain.name} \n"
-                i+=1
             end
             number = gets
 
@@ -67,3 +71,4 @@ class Player
         picked.got_attacked(@damage_attack)
         puts "#{@name} has attack #{picked.name} with #{@damage_attack} damage"
     end
+end
