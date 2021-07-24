@@ -5,9 +5,9 @@ require './models/item.rb'
 def create_db_client
     @client = Mysql2::Client.new(
         :host => "localhost",
-        :username => "root",
-        :password => "",
-        :database => "food_oms_db"
+        :username => ENV["DB_USERNAME"],
+        :password => ENV["DB_PASWORD"],
+        :database => ENV["DB_NAME"]
     )
     @client
 end
