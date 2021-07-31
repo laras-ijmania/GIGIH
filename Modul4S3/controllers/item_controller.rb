@@ -1,58 +1,56 @@
-require './models/item.rb'
-require './models/category.rb'
+# frozen_string_literal: true
+
+require './models/item'
+require './models/category'
 
 class ItemController
-    def create(params)
-        item = Item.new(params)
-        item.save
-        
-        # index
-    end
+  def create(params)
+    item = Item.new(params)
+    return false unless item.valid?
+    item.save
+  end
 
-    def index 
-        items = Item.get_all
-        renderer = ERB.new(File.read("./views/item_list.erb"))
-        renderer.result(binding)
-    end
+  def index
+    items = Item.get_all
+    renderer = ERB.new(File.read('./views/item_list.erb'))
+    renderer.result(binding)
+  end
 
-    def update(params)
-        item = Item.find_by_id(params["id"])
-        if !item
-            return false
-        end
-        item.name = params["name"]
-        item.price = params["price"]
-        item.category = params["category_id"]
-        item.update
+  def update(params)
+    item = Item.find_by_id(params['id'])
+    return false unless item
 
-        # index
-    end
+    item.name = params['name']
+    item.price = params['price']
+    item.category = params['category']
+    item.update
 
-    def delete(params)
-        item = Item.find_by_id(params["id"])
-        if !item
-            return false
-        end
-        item.delete
+    true
+  end
 
-        # index
-    end
+  def delete(params)
+    item = Item.find_by_id(params['id'])
+    return false unless item
 
-    def show(params)
-        item = Item.new(
-            params["id"],
-            params["name"],
-            params["price"],
-            params["category"]
-        )
-        categories = Category.get_all
-        renderer = ERB.new(File.read("./views/item_update.erb"))
-        renderer.result(binding)
-    end
+    item.delete
+  end
 
-    def add
-        categories = Category.get_all
-        renderer = ERB.new(File.read("./views/item_form.erb"))
-        renderer.result(binding)
-    end
+  def show(params)
+    item = Item.new({
+      id: params['id'],
+      name: params['name'],
+      price: params['price'],
+      category: params['category']}
+    )
+    return false unless item.valid?
+    categories = Category.get_all
+    renderer = ERB.new(File.read('./views/item_update.erb'))
+    renderer.result(binding)
+  end
+
+  def add
+    categories = Category.get_all
+    renderer = ERB.new(File.read('./views/item_form.erb'))
+    renderer.result(binding)
+  end
 end

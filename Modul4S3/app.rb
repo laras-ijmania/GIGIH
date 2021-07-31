@@ -1,67 +1,69 @@
+# frozen_string_literal: true
+
 require 'sinatra'
-require './controllers/item_controller.rb'
-require './controllers/category_controller.rb'
+require './controllers/item_controller'
+require './controllers/category_controller'
 
 get '/' do
-    return 'Hello world'
+  return 'Hello world'
 end
 
 get '/items' do
-    controller = ItemController.new
-    controller.index()
+  controller = ItemController.new
+  controller.index
 end
 
 get '/items/add' do
-    controller = ItemController.new
-    controller.add()
+  controller = ItemController.new
+  controller.add
 end
 
 post '/items/show' do
-    controller = ItemController.new
-    controller.show(params)
+  controller = ItemController.new
+  controller.show(params)
 end
 
 post '/items/delete' do
-    controller = ItemController.new
-    controller.delete(params)
+  controller = ItemController.new
+  controller.delete(params)
 end
 
 post '/items' do
-    controller = ItemController.new
-    controller.create(params)
+  controller = ItemController.new
+  controller.create(params)
 end
 
 post '/items/update' do
-    controller = ItemController.new
-    controller.update(params)
+  controller = ItemController.new
+  controller.update(params)
 end
 
 get '/categories' do
-    controller = CategoryController.new
-    controller.index()
+  controller = CategoryController.new
+  controller.index
 end
 
 get '/categories/add' do
-    controller = CategoryController.new
-    controller.add()
+  controller = CategoryController.new
+  controller.add
 end
 
 post '/categories/show' do
-    controller = CategoryController.new
-    controller.show(params)
+  controller = CategoryController.new
+  controller.show(params)
 end
 
 post '/categories/delete' do
-    controller = CategoryController.new
-    controller.delete(params)
+  controller = CategoryController.new
+  controller.delete(params)
 end
 
 post '/categories' do
-    controller = CategoryController.new
-    controller.create(params)
+  controller = CategoryController.new
+  controller.create(params)
 end
 
 post '/categories/update' do
-    controller = CategoryController.new
-    controller.update(params)
+  controller = CategoryController.new
+  controller.update(params)
 end
