@@ -188,3 +188,69 @@ describe '#index' do
   end
 end
 
+describe '#show' do
+  context 'if post found' do
+    it 'should show 1 post if found and all the comments' do
+      params = { "id": 1 }
+      post_params = { "id": 1, "content": 'a', "attachment": '', "user_name": 'b', "related_id": '' }
+      comment_params = { "id": 2, "content": 'a', "attachment": '', "user_name": 'b', "related_id": '' }
+      new_comment = Post.new(comment_params)
+      comments = [new_comment]
+      controller = PostController.new
+      expect(Post).to receive(:find_by_id).and_return(post_params)
+      expect(Post).to receive(:find_comment_by_post_id).with(1).and_return(comments)
+      result = controller.show(params)
+      expected = '{"post":{"id":1,"content":"a","attachment":"","user_name":"b","related_id":""},"comment":[{"id":2,"content":"a","attachment":"","user_name":"b","related_id":"","created_at":null}]}'
+      expect(result).to eq(expected)
+    end
+  end
+end
+
+context 'if post not found' do
+  it 'should return nil' do
+    params = { 'id' => 1 }
+
+    controller = PostController.new
+
+    expect(Post).to receive(:find_by_id).and_return(nil)
+
+    result = controller.show(params)
+    expected = nil
+
+    expect(result).to eq(expected)
+  end
+end
+
+describe '#show' do
+  context 'if post found' do
+    it 'should show 1 post if found and all the comments' do
+      params = { "id": 1 }
+      post_params = { "id": 1, "content": 'a', "attachment": '', "user_name": 'b', "related_id": '' }
+      comment_params = { "id": 2, "content": 'a', "attachment": '', "user_name": 'b', "related_id": '' }
+      new_comment = Post.new(comment_params)
+      comments = [new_comment]
+      controller = PostController.new
+      expect(Post).to receive(:find_by_id).and_return(post_params)
+      expect(Post).to receive(:find_comment_by_post_id).with(1).and_return(comments)
+      result = controller.show(params)
+      expected = '{"post":{"id":1,"content":"a","attachment":"","user_name":"b","related_id":""},"comment":[{"id":2,"content":"a","attachment":"","user_name":"b","related_id":"","created_at":null}]}'
+      expect(result).to eq(expected)
+    end
+  end
+end
+
+context 'if post not found' do
+  it 'should return nil' do
+    params = { 'id' => 1 }
+
+    controller = PostController.new
+
+    expect(Post).to receive(:find_by_id).and_return(nil)
+
+    result = controller.show(params)
+    expected = nil
+
+    expect(result).to eq(expected)
+  end
+end
+
