@@ -105,3 +105,19 @@ describe 'save' do
     end
   end
 end
+
+describe 'get all' do
+  context 'when executed' do
+    it 'should return all posts and comments' do
+      stub_client = double
+      stub_query = 'SELECT id, content, attachment, user_name, created_at FROM posts p ORDER BY created_at desc'
+      posts = [{ "id": 1, "content": 'a', "attachment": '', "user_name": 'b', "created_at": '' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(posts)
+
+      result = Post.all
+      expect(result).not_to be_nil
+    end
+  end
+end
