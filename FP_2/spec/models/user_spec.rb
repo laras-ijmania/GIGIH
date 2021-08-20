@@ -37,3 +37,19 @@ describe 'user save' do
     end
   end
 end
+
+describe 'user update' do
+  context 'when executed' do
+    it 'should change data' do
+      stub_client = double
+      stub_query = "UPDATE users SET bio='b' WHERE name = 'a'"
+      user = User.new({
+                        name: 'a',
+                        bio: 'b'
+                      })
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query)
+      user.update
+    end
+  end
+end

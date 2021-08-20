@@ -18,4 +18,9 @@ class User
     client = create_db_client
     client.query("INSERT INTO users (name, bio) VALUES ('#{@name}', '#{@bio}')")
   end
+
+  def update
+    client = create_db_client
+    client.query("UPDATE users SET bio='#{@bio}' WHERE name = '#{@name}'")
+  end
 end
