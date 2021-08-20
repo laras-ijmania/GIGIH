@@ -62,4 +62,10 @@ class Post
     end
     posts
   end
+
+  def self.post_by_id?(id)
+    @client = create_db_client
+    result = @client.query("SELECT id FROM posts WHERE id = #{id} AND related_id IS NULL")
+    result.count.positive?
+  end
 end

@@ -138,3 +138,18 @@ describe 'get all posts' do
   end
 end
 
+describe 'is post by id' do
+  context 'when executed' do
+    it 'should return true if found' do
+      stub_client = double
+      stub_query = 'SELECT id FROM posts WHERE id = 1 AND related_id IS NULL'
+      posts = [{ "id": 1, "content": 'a', "attachment": '', "user_name": 'b', "created_at": '' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(posts)
+
+      result = Post.post_by_id?(1)
+      expect(result).to eq(true)
+    end
+  end
+end
