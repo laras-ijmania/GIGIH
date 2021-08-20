@@ -14,4 +14,18 @@ class PostController
 
     post.save ? 'post created' : 'post not created'
   end
+
+  def index
+    posts = Post.all_posts
+    posts.to_json
+  end
+
+  def show(params)
+    post = Post.find_by_id(params[:id])
+    return if post.nil?
+
+    comments = Post.find_comment_by_post_id(params[:id])
+    object = { 'post' => post, 'comment' => comments }
+    JSON[object]
+  end
 end

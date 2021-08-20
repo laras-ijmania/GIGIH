@@ -167,3 +167,24 @@ describe '#create' do
   end
 end
 
+describe '#index' do
+  context 'given valid parameter' do
+    it 'should show all post' do
+      controller = PostController.new
+      params = {
+        "id": 1,
+        "content": 'a',
+        "attachment": '',
+        "user_name": 'b',
+        "related_id": ''
+      }
+      post = Post.new(params)
+      posts = [post]
+      expect(Post).to receive(:all_posts).and_return(posts)
+      result = controller.index
+      expected = '[{"id":1,"content":"a","attachment":"","user_name":"b","related_id":"","created_at":null}]'
+      expect(result).to eq(expected)
+    end
+  end
+end
+
