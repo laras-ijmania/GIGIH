@@ -26,4 +26,18 @@ class Post
   def comment?
     !@related_id.nil?
   end
+
+  def save
+    client = create_db_client
+    if @attachment.nil? && @related_id.nil?
+      client.query("INSERT INTO posts (content, user_name) VALUES ('#{@content}', '#{@user_name}')")
+    elsif @attachment.nil?
+      client.query("INSERT INTO posts (content, user_name, related_id) VALUES ('#{@content}', '#{@user_name}', #{@related_id})")
+    elsif @related_id.nil?
+      client.query("INSERT INTO posts (content, attachment, user_name) VALUES ('#{@content}', '#{@attachment}', '#{@user_name}')")
+    else
+      client.query("INSERT INTO posts (content, attachment, user_name, related_id) VALUES ('#{@content}', '#{@attachment}', '#{@user_name}', #{@related_id})")
+    end
+    true
+  end
 end
