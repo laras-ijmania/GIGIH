@@ -53,3 +53,94 @@ describe 'user update' do
     end
   end
 end
+
+describe 'user get all' do
+  context 'when executed' do
+    it 'should return all data' do
+      stub_client = double
+      stub_query = 'SELECT u.name as name, u.bio as bio, u.created_at as created_at FROM users u'
+      users = [{ "name": 'a', "bio": 'b', "created_at": 'c' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(users)
+
+      get_user = User.all
+      expect(get_user).not_to be_nil
+    end
+  end
+end
+
+describe 'user is user by name' do
+  context 'when user exist' do
+    it 'should return true' do
+      stub_client = double
+      stub_query = "select name from users where name = 'a'"
+      users = [{ "name": 'a' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(users)
+
+      found_user = User.user_by_name?('a')
+      expect(found_user).to eq(true)
+    end
+  end
+
+  context 'user when user not exist' do
+    it 'should return false' do
+      stub_client = double
+      stub_query = "select name from users where name = 'a'"
+      users = []
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(users)
+
+      found_user = User.user_by_name?('a')
+      expect(found_user).to eq(false)
+    end
+  end
+end
+
+describe 'user find by name' do
+  context 'when data found' do
+    it 'should return exactly 1 data' do
+      stub_client = double
+      stub_query = "select * from users where name = 'a'"
+      users = [{ "id": 1, "name": 'a', "bio": 'b', "created_at": 'c' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(users)
+
+      found_user = User.find_by_name('a')
+      expect(found_user).not_to be_nil
+    end
+  end
+
+  context 'user when data not found' do
+    it 'should return empty' do
+      stub_client = double
+      stub_query = "select * from users where name = 'a'"
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return([])
+
+      found_user = User.find_by_name('a')
+      expect(found_user).to eq(nil)
+    end
+  end
+end
+
+describe 'user delete' do
+  context 'when executed' do
+    it 'should delete data' do
+      stub_client = double
+      stub_query = "DELETE FROM users WHERE name = 'a'"
+      user = User.new({
+                        name: 'a',
+                        bio: 'b'
+                      })
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query)
+      user.delete
+    end
+  end
+end
