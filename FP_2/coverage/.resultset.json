@@ -1,0 +1,27 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/l/GIGIH/FP_2/spec/controllers/post_controller_spec.rb": {
+        "lines": [
+
+        ]
+      },
+      "/home/l/GIGIH/FP_2/spec/controllers/user_controller_spec.rb": {
+        "lines": [
+
+        ]
+      },
+      "/home/l/GIGIH/FP_2/spec/models/post_spec.rb": {
+        "lines": [
+
+        ]
+      },
+      "/home/l/GIGIH/FP_2/spec/models/user_spec.rb": {
+        "lines": [
+
+        ]
+      }
+    },
+    "timestamp": 1629484797
+  }
+}
