@@ -60,3 +60,27 @@ describe '#index' do
     end
   end
 end
+
+describe '#show' do
+  context 'if user found' do
+    it 'should show 1 post if found and all the comments' do
+      params = { "name": 'a', "bio": 'b' }
+      controller = UserController.new
+      expect(User).to receive(:find_by_name).and_return(params)
+      result = controller.show(params)
+      expected = '{"name":"a","bio":"b"}'
+      expect(result).to eq(expected)
+    end
+  end
+
+  context 'given valid parameter' do
+    it 'should show 1 user if found' do
+      params = { 'name' => 'a' }
+      controller = UserController.new
+      expect(User).to receive(:find_by_name).and_return(nil)
+      result = controller.show(params)
+      expected = nil
+      expect(result).to eq(expected)
+    end
+  end
+end

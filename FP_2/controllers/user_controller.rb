@@ -14,4 +14,11 @@ class UserController
     users = User.all
     users.to_json
   end
+
+  def show(params)
+    user = User.find_by_name(params[:name])
+    return if user.nil?
+
+    user.to_json
+  end
 end
