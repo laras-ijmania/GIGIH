@@ -254,3 +254,27 @@ context 'if post not found' do
   end
 end
 
+describe '#search' do
+  context 'given str' do
+    it 'should return all posts and comments with content include str' do
+      params_str = {
+        "str": '#a'
+      }
+      params = {
+        "id": 1,
+        "content": '#a',
+        "attachment": '',
+        "user_name": 'b',
+        "related_id": ''
+      }
+      post = Post.new(params)
+      posts = [post]
+      expect(Post).to receive(:find_by_content).with('#a').and_return(posts)
+
+      controller = PostController.new
+      result = controller.search(params_str)
+      expect(result).not_to be_nil
+    end
+  end
+end
+

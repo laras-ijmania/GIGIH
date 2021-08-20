@@ -28,4 +28,9 @@ class PostController
     object = { 'post' => post, 'comment' => comments }
     JSON[object]
   end
+
+  def search(params)
+    posts = Post.find_by_content(params[:str])
+    posts.to_json
+  end
 end
