@@ -103,4 +103,15 @@ class Post
     end
     posts
   end
+
+  def to_json(*args)
+    {
+      'id' => @id,
+      'content' => @content,
+      'attachment' => @attachment,
+      'user_name' => @user_name,
+      'related_id' => @related_id,
+      'created_at' => @created_at
+    }.to_json(*args)
+  end
 end
