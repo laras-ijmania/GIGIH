@@ -84,4 +84,86 @@ describe '#create' do
       expect(result_string).to eq('post not found')
     end
   end
+
+  context 'given sql error' do
+    it 'return post not created' do
+      stub = double
+  
+      controller = PostController.new
+      params = {
+        "id": 1,
+        "content": 'a',
+        "attachment": '',
+        "user_name": 'b',
+        "related_id": ''
+      }
+      expect(Post).to receive(:new).with(params).and_return(stub)
+      expect(stub).to receive(:valid?).and_return(true)
+      expect(User).to receive(:user_by_name?).and_return(true)
+      expect(stub).to receive(:save).and_return(false)
+      expect(stub).to receive(:comment?).and_return(false)
+  
+      result_string = controller.create(params)
+      expect(result_string).to eq('post not created')
+    end
+  end
+  
+  context 'given invalid post' do
+    it 'should return invalid post' do
+      stub = double
+  
+      controller = PostController.new
+      params = {
+        'user_name' => 'a'
+      }
+  
+      expect(Post).to receive(:new).with(params).and_return(stub)
+      expect(stub).to receive(:valid?).and_return(false)
+  
+      result = controller.create(params)
+  
+      expected = 'invalid post'
+  
+      expect(result).to eq(expected)
+    end
+  end
+  
+  context 'given invalid post' do
+    it 'should return invalid post' do
+      stub = double
+      controller = PostController.new
+      params = {
+        'content' => 'a'
+      }
+      expect(Post).to receive(:new).with(params).and_return(stub)
+      expect(stub).to receive(:valid?).and_return(false)
+  
+      result = controller.create(params)
+  
+      expected = 'invalid post'
+  
+      expect(result).to eq(expected)
+    end
+  end
+  
+  context 'given user not found' do
+    it 'should return user not found' do
+      stub = double
+      controller = PostController.new
+      params = {
+        "id": 1,
+        "content": 'a',
+        "attachment": '',
+        "user_name": 'b',
+        "related_id": ''
+      }
+      expect(Post).to receive(:new).with(params).and_return(stub)
+      expect(stub).to receive(:valid?).and_return(true)
+      expect(User).to receive(:user_by_name?).and_return(false)
+      result = controller.create(params)
+      expected = 'user not found'
+      expect(result).to eq(expected)
+    end
+  end
 end
+
