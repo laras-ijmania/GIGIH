@@ -62,4 +62,12 @@ class User
     client = create_db_client
     client.query("DELETE FROM users WHERE name = '#{@name}'")
   end
+  
+  def to_json(*args)
+    {
+      'name' => @name,
+      'bio' => @bio,
+      'created_at' => @created_at
+    }.to_json(*args)
+  end
 end
