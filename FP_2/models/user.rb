@@ -13,4 +13,9 @@ class User
   def valid?
     !(@name.nil? || @bio.nil?)
   end
+
+  def save
+    client = create_db_client
+    client.query("INSERT INTO users (name, bio) VALUES ('#{@name}', '#{@bio}')")
+  end
 end
