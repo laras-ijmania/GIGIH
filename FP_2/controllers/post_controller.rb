@@ -33,4 +33,21 @@ class PostController
     posts = Post.find_by_content(params[:str])
     posts.to_json
   end
+
+  def trending
+    posts = Post.all
+    hashtag_count = Hash.new(0)
+    posts.each do |post|
+      hashtag_post = []
+      post.content.split(' ').each do |word|
+        next unless word =~ /#\w+/
+
+        hashtag_post.push(word) unless hashtag_post.include?(word)
+      end
+      hashtag_post.each do |hashtag|
+        hashtag_count[hashtag] += 1
+      end
+    end
+    hashtag_count.sort_by { |_key, value| value }.reverse.to_h.to_json
+  end
 end

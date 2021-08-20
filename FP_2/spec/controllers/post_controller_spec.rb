@@ -278,3 +278,23 @@ describe '#search' do
   end
 end
 
+describe '#trending' do
+  context '' do
+    it 'should return hashtag and count' do
+      params = {
+        "id": 1,
+        "content": '#a',
+        "attachment": '',
+        "user_name": 'b',
+        "related_id": ''
+      }
+      post = Post.new(params)
+      posts = [post]
+      expect(Post).to receive(:all).and_return(posts)
+
+      controller = PostController.new
+      result = controller.trending
+      expect(result).not_to be_nil
+    end
+  end
+end
