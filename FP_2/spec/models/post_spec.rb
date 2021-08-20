@@ -153,3 +153,35 @@ describe 'is post by id' do
     end
   end
 end
+
+describe 'find posts by id' do
+  context 'when id found' do
+    it 'should return 1 post' do
+      stub_client = double
+      stub_query = 'SELECT id, content, attachment, user_name, created_at FROM posts WHERE id = 1'
+      posts = [{ "id": 1, "content": 'a', "attachment": '', "user_name": 'b', "created_at": '' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(posts)
+
+      result = Post.find_by_id('1')
+      expect(result).not_to be_nil
+    end
+  end
+end
+
+describe 'get all comment by post id' do
+  context 'when executed' do
+    it 'should return all comment on 1 post' do
+      stub_client = double
+      stub_query = 'SELECT id, content, attachment, user_name, related_id, created_at FROM posts p WHERE p.related_id = 1'
+      posts = [{ "id": 2, "content": 'a', "attachment": '', "user_name": 'b', "related_id": 1, "created_at": '' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(posts)
+
+      result = Post.find_comment_by_post_id(1)
+      expect(result).not_to be_nil
+    end
+  end
+end
