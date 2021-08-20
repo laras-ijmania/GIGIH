@@ -90,4 +90,17 @@ class Post
     end
     posts
   end
+
+  def self.find_by_content(str)
+    @client = create_db_client
+    raw_data = @client.query("SELECT id, content, attachment, user_name, related_id, created_at FROM posts p WHERE p.content like '%#{str}%'")
+    return nil unless raw_data.count.positive?
+
+    posts = []
+    raw_data.each do |data|
+      post = Post.new({ "id": data['id'], "content": data['content'], "attachment": data['attachment'], "user_name": data['user_name'], "related_id": data['related_id'], "created_at": data['created_at'] })
+      posts.push(post)
+    end
+    posts
+  end
 end

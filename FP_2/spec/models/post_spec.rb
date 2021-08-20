@@ -185,3 +185,19 @@ describe 'get all comment by post id' do
     end
   end
 end
+
+describe 'find by content' do
+  context 'when executed' do
+    it 'should return all posts and comments with content' do
+      stub_client = double
+      stub_query = "SELECT id, content, attachment, user_name, related_id, created_at FROM posts p WHERE p.content like '%test%'"
+      posts = [{ "id": 2, "content": 'test', "attachment": '', "user_name": 'b', "related_id": 1, "created_at": '' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(posts)
+
+      result = Post.find_by_content('test')
+      expect(result).not_to be_nil
+    end
+  end
+end
