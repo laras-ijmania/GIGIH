@@ -1,0 +1,23 @@
+- name: copy file
+  hosts: localhost
+  remote_user: 104.199.135.201
+
+  tasks:
+  - name: copy
+    command: scp -i /home/l/.vagrant/machines/default/virtualbox/private_key  build.tgz vagrant@104.199.135.201
+    register: test
+
+- name: extract
+  hosts: 104.199.135.201
+  
+  tasks:
+  - name: extract build.tgz
+    command: tar -xvzf app/build.tgz
+
+
+- name: install dependencies
+  hosts: 104.199.135.201
+
+  tasks:
+    - name: install ruby
+      command: sudo apt-get install ruby-full
