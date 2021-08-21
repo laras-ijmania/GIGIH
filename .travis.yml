@@ -1,4 +1,8 @@
 language: ruby
-ruby: 3.0
+
+ruby: '3.0'
 
 repo: Gigih
+branches: 
+  only:
+  - FP_2
