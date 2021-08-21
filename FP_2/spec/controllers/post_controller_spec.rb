@@ -290,7 +290,7 @@ describe '#trending' do
       }
       post = Post.new(params)
       posts = [post]
-      expect(Post).to receive(:all).and_return(posts)
+      expect(Post).to receive(:all_one_day).and_return(posts)
 
       controller = PostController.new
       result = controller.trending

@@ -52,6 +52,17 @@ class Post
     posts
   end
 
+  def self.all_one_day
+    @client = create_db_client
+    raw_data = @client.query('SELECT id, content, attachment, user_name, created_at FROM posts p where created_at > NOW() - INTERVAL 1 DAY ORDER BY created_at desc')
+    posts = []
+    raw_data.each do |data|
+      post = Post.new({ "id": data['id'], "content": data['content'], "attachment": data['attachment'], "user_name": data['user_name'], "related_id": data['related_id'], "created_at": data['created_at'] })
+      posts.push(post)
+    end
+    posts
+  end
+
   def self.all_posts
     @client = create_db_client
     raw_data = @client.query('SELECT id, content, attachment, user_name, created_at FROM posts p WHERE p.related_id IS NULL ORDER BY created_at desc')

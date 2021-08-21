@@ -122,6 +122,22 @@ describe 'get all' do
   end
 end
 
+describe 'get all post one day' do
+  context 'when executed' do
+    it 'should return all posts and comments made in the last 24 hours' do
+      stub_client = double
+      stub_query = 'SELECT id, content, attachment, user_name, created_at FROM posts p where created_at > NOW() - INTERVAL 1 DAY ORDER BY created_at desc'
+      posts = [{ "id": 1, "content": 'a', "attachment": '', "user_name": 'b', "created_at": '' }]
+
+      allow(Mysql2::Client).to receive(:new).and_return(stub_client)
+      expect(stub_client).to receive(:query).with(stub_query).and_return(posts)
+
+      result = Post.all_one_day
+      expect(result).not_to be_nil
+    end
+  end
+end
+
 describe 'get all posts' do
   context 'when executed' do
     it 'should return all posts' do

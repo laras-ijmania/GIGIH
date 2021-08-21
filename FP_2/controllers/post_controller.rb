@@ -35,13 +35,12 @@ class PostController
   end
 
   def trending
-    posts = Post.all
+    posts = Post.all_one_day
     hashtag_count = Hash.new(0)
     posts.each do |post|
       hashtag_post = []
       post.content.split(' ').each do |word|
         next unless word =~ /#\w+/
-
         hashtag_post.push(word) unless hashtag_post.include?(word)
       end
       hashtag_post.each do |hashtag|
