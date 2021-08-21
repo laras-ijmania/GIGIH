@@ -1,0 +1,6 @@
+Repository 
+link : https://github.com/laras-ijmania/GIGIH
+folder : FP_2
+
+GCP server
+address : 104.199.135.201:4567

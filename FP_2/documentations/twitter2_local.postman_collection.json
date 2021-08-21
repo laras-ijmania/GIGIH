@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "bfe55420-b947-493e-8345-8b2262d0ce77",
+		"name": "twitter2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4567/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "l",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "created_at",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4567/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "L",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "created_at",
+									"value": "02/08/2021",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Name",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4567/users/l",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"users",
+								"l"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trending",
+			"item": [
+				{
+					"name": "Trending",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://104.199.135.201:4567/trending",
+							"protocol": "http",
+							"host": [
+								"104",
+								"199",
+								"135",
+								"201"
+							],
+							"port": "4567",
+							"path": [
+								"trending"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Create new Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": "/Users/rizky.widyayulianto/Documents/screenshots/Screenshot 2021-08-15 at 09.31.56.png"
+								},
+								{
+									"key": "user_name",
+									"value": "l",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "bye",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4567/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": "/Users/rizky.widyayulianto/Documents/screenshots/Screenshot 2021-08-15 at 09.31.56.png"
+								},
+								{
+									"key": "user_name",
+									"value": "l",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "test file",
+									"type": "text"
+								},
+								{
+									"key": "related_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4567/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a post and it's comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4567/posts/1",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all posts and comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4567/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4567/search/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"search",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
