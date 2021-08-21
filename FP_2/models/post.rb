@@ -20,7 +20,7 @@ class Post
   end
 
   def valid?
-    !(@content.nil? || @user_name.nil?)
+    !(@content.nil? || @user_name.nil?) && @content.length <= 1000
   end
 
   def comment?
